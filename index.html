@@ -1,96 +1,222 @@
 <!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script defer src="/_vercel/insights/script.js"></script>
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/@exampledev/new.css@1.1.2/new.min.css"
-    />
-    <title>Vercel HTML Starter</title>
-    <meta
-      name="description"
-      content="High-performance HTML based website template."
-    />
-  </head>
-  <body>
-    <h1>Vercel HTML Starter</h1>
-    <p>
-      This template is a simple, but powerful single
-      <code>index.html</code> file deployed to
-      <a href="https://vercel.com">Vercel</a>. When your site is deployed, all
-      static assets (like HTML, JavaScript, CSS, images, and more) are deployed
-      globally to every
-      <a href="https://vercel.com/docs/concepts/edge-network/overview"
-        >Vercel Edge Network</a
-      >
-      region.
-    </p>
-    <h2>Simple, privacy-friendly analytics</h2>
-    <p>
-      Want to understand your visitor traffic? Vercel Analytics gives you
-      first-party, privacy-friendly traffic analytics for your HTML site. This
-      template is already configured using the following script:
-    </p>
-    <pre><code>&lt;script defer src="/_vercel/insights/script.js"&gt;&lt;/script&gt;</code></pre>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/analytics">Vercel Analytics</a>.
-    </p>
-    <h2>Integrated with git</h2>
-    <p>
-      Deploying updates to your site is as simple as
-      <code>git push</code> thanks to Vercel's advanced
-      <a href="https://vercel.com/docs/concepts/git">Git Integration</a>.
-      Support for GitHub, GitLab, Bitbucket is zero-configuration, and with the
-      flexible Vercel CLI and API, you can integrate with any tool possible.
-    </p>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/git">Git Integration</a>.
-    </p>
-    <h2>Fast <code>gzip</code> compression</h2>
-    <p>
-      To help ensure the smallest possible file sizes for your static assets,
-      the Vercel Edge Network compresses files by default using
-      <code>gzip</code>. You can also optionally use
-      <code>brotli</code> compressesion if you prefer.
-    </p>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/edge-network/compression"
-        >compression</a
-      >.
-    </p>
-    <h2>Advanced routing configuration</h2>
-    <p>
-      Vercel gives you a variety of ways to configure the routing of your
-      website. For example, adding redirects, rewrites, or headers to your page.
-      While you can use <code>vercel.json</code> to define these through JSON,
-      you can also express your routing configuration as code using
-      <a href="https://vercel.com/docs/concepts/functions/edge-middleware"
-        >Vercel Edge Middleware</a
-      >.
-    </p>
-    <p>
-      Middleware runs before the
-      <a href="https://vercel.com/docs/concepts/edge-network/caching"
-        >Vercel Edge Network Cache</a
-      >, so you can configure routing exactly as your application needs. For
-      example, this template uses <code>middleware.js</code> defined in the root
-      of the repository to add additional security headers to the site:
-    </p>
-    <pre><code>referrer-policy: origin-when-cross-origin
-strict-transport-security: max-age=31536000; includeSubDomains; preload
-x-content-type-options: nosniff
-x-dns-prefetch-control: on
-x-frame-options: DENY</code></pre>
-    <p>
-      Learn more about
-      <a href="https://vercel.com/docs/concepts/functions/edge-middleware"
-        >Vercel Edge Middleware</a
-      >.
-    </p>
-  </body>
+    <title>MindWorker - Europäisches Finanzsystem</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: linear-gradient(135deg, #c8d6d4 0%, #e8f0ee 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .logo-section {
+            margin: 30px 0 40px 0;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo-icon {
+            width: 45px;
+            height: 45px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon svg {
+            width: 100%;
+            height: 100%;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 3px;
+            color: #2c3e50;
+        }
+
+        .headline {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 0 20px;
+        }
+
+        .headline h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: #2c3e50;
+            line-height: 1.3;
+            margin-bottom: 10px;
+        }
+
+        .headline .warning {
+            color: #d32f2f;
+            text-decoration: underline;
+        }
+
+        .subheadline {
+            font-size: 24px;
+            color: #555;
+            font-weight: 400;
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 900px;
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px;
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 aspect ratio */
+        }
+
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .cta-button {
+            background: #2e7d32;
+            color: white;
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: 600;
+            border: none;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(46, 125, 50, 0.3);
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            text-decoration: none;
+        }
+
+        .cta-button:hover {
+            background: #1b5e20;
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(46, 125, 50, 0.4);
+        }
+
+        .cta-button svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .headline h1 {
+                font-size: 24px;
+            }
+
+            .subheadline {
+                font-size: 18px;
+            }
+
+            .logo-text {
+                font-size: 20px;
+            }
+
+            .cta-button {
+                font-size: 16px;
+                padding: 15px 30px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="logo-section">
+            <div class="logo-icon">
+                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="20" r="8" fill="none" stroke="#333" stroke-width="2"/>
+                    <circle cx="30" cy="40" r="8" fill="none" stroke="#333" stroke-width="2"/>
+                    <circle cx="70" cy="40" r="8" fill="none" stroke="#333" stroke-width="2"/>
+                    <circle cx="20" cy="65" r="8" fill="none" stroke="#333" stroke-width="2"/>
+                    <circle cx="50" cy="65" r="8" fill="none" stroke="#333" stroke-width="2"/>
+                    <circle cx="80" cy="65" r="8" fill="none" stroke="#333" stroke-width="2"/>
+                    <line x1="50" y1="28" x2="30" y2="32" stroke="#333" stroke-width="1.5"/>
+                    <line x1="50" y1="28" x2="70" y2="32" stroke="#333" stroke-width="1.5"/>
+                    <line x1="30" y1="48" x2="20" y2="57" stroke="#333" stroke-width="1.5"/>
+                    <line x1="30" y1="48" x2="50" y2="57" stroke="#333" stroke-width="1.5"/>
+                    <line x1="70" y1="48" x2="50" y2="57" stroke="#333" stroke-width="1.5"/>
+                    <line x1="70" y1="48" x2="80" y2="57" stroke="#333" stroke-width="1.5"/>
+                </svg>
+            </div>
+            <div class="logo-text">Nuvetra</div>
+        </div>
+
+        <div class="headline">
+            <h1>ACHTUNG: Das europäische Finanzsystem arbeitet <span class="warning">GEGEN</span> dich!</h1>
+            <p class="subheadline">(So steigst du legal aus, bevor es zu spät ist)</p>
+        </div>
+
+        <div class="video-container">
+            <!-- Replace VIDEO_ID with your actual YouTube video ID -->
+            <iframe 
+                src="https://www.youtube.com/embed/VIDEO_ID?autoplay=0&controls=1&rel=0&modestbranding=1" 
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                allowfullscreen>
+            </iframe>
+        </div>
+
+        <button class="cta-button" onclick="applyForAppointment()">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path d="M9 11H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2zm2-7h-1V2h-2v2H8V2H6v2H5c-1.11 0-1.99.9-1.99 2L3 20c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 16H5V9h14v11z"/>
+            </svg>
+            Auf Einen Termin Bewerben!
+        </button>
+    </div>
+
+    <script>
+        function applyForAppointment() {
+            // Add your appointment booking logic here
+            // For example, redirect to a booking page or open a modal
+            alert('Weiterleitung zur Terminbuchung...');
+            // window.location.href = 'YOUR_BOOKING_URL';
+        }
+
+        // Optional: Add animation when page loads
+        window.addEventListener('load', function() {
+            const elements = document.querySelectorAll('.headline, .video-container, .cta-button');
+            elements.forEach((el, index) => {
+                el.style.opacity = '0';
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                
+                setTimeout(() => {
+                    el.style.opacity = '1';
+                    el.style.transform = 'translateY(0)';
+                }, index * 200);
+            });
+        });
+    </script>
+</body>
 </html>
