@@ -1424,7 +1424,7 @@ const phoneInput = window.intlTelInput(document.querySelector("#phoneNumber"), {
     setTimeout(() => {
       document.getElementById("step3").classList.remove("active");
       document.getElementById("step4").classList.add("active");
-      initializeCalendly();    
+      //initializeCalendly();    
     }, 800);
     setTimeout(() => {
       document.getElementById("step4").classList.add("fade-in-step");
@@ -1649,8 +1649,8 @@ const phoneInput = window.intlTelInput(document.querySelector("#phoneNumber"), {
     }
 
     // Send to both webhooks
-    sendToWebhook(zapierWebhookUrl1, zapierData, onWebhookComplete);
-    sendToWebhook(zapierWebhookUrl2, zapierData, onWebhookComplete);
+    //sendToWebhook(zapierWebhookUrl1, zapierData, onWebhookComplete);
+    //sendToWebhook(zapierWebhookUrl2, zapierData, onWebhookComplete);
   }
   
   // Validation helpers
