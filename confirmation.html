@@ -755,8 +755,8 @@ var calEndTimeResult = splitISO8601(meetingEndTime);
 var calEndTimeResult = splitISO8601("2025-02-28T19:21:30+01:00");
   }
 
-// Fixed HTML string with proper spacing and actual meeting times
-document.getElementById("calBtn").innerHTML = '<add-to-calendar-button name="Erstgespräch Mindworker" description="An initial consultation with ' + assigned_to + ' from Mindworker for answering your questions." startDate="' + calStartTimeResult.date + '"  startTime="' + calStartTimeResult.time + '"  endDate="' + calEndTimeResult.date + '" endTime="' + calEndTimeResult.time + '"  timeZone="Europe/Berlin"  options="\'Apple\',\'Google\',\'iCal\',\'Outlook.com\',\'Yahoo\',\'Microsoft365\',\'MicrosoftTeams\'"  listStyle="overlay"  buttonStyle="round"  label="Add to calendar"  language="en"></add-to-calendar-button>';
+// Fixed HTML string with proper spacing and actual meeting times REMOVED: with ' + assigned_to + ' 
+document.getElementById("calBtn").innerHTML = '<add-to-calendar-button name="Erstgespräch Mindworker" description="An initial consultation from Nuvetra for answering your questions." startDate="' + calStartTimeResult.date + '"  startTime="' + calStartTimeResult.time + '"  endDate="' + calEndTimeResult.date + '" endTime="' + calEndTimeResult.time + '"  timeZone="Europe/Berlin"  options="\'Apple\',\'Google\',\'iCal\',\'Outlook.com\',\'Yahoo\',\'Microsoft365\',\'MicrosoftTeams\'"  listStyle="overlay"  buttonStyle="round"  label="Add to calendar"  language="en"></add-to-calendar-button>';
 
 setTimeout(function(){ 
 //host is the element that holds the shadow root:
@@ -1072,5 +1072,6 @@ host.shadowRoot.appendChild( style );
 </body>
 
 </html>
+
 
 
