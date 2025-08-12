@@ -672,28 +672,125 @@
             <div class="step-badge">Step 7 of 7</div>
             <h2 class="section-title">Confirm Your Call</h2>
             
-            <p style="text-align: center; margin-bottom: 30px;">
-                ✅ You will receive a calendar invite via email (Google, Apple, or Outlook). It will look just like the one shown below.
-            </p>
+            <div id="calBtn" style="margin: auto; font-size: 1.25rem; text-align: center; position: relative; border-radius: 100px; background: transparent; color: #014421;"></div>
 
-            <div class="calendar-preview">
-                <div class="calendar-header">View on Google Calendar</div>
-                <div style="display: flex; align-items: center; gap: 20px; margin: 20px 0;">
-                    <div style="font-size: 48px; font-weight: bold;">9</div>
-                    <div style="font-size: 24px;">Sun 📅</div>
-                </div>
-                <div class="calendar-details">
-                    <div><span class="calendar-label">When</span> Sun Feb 9, 2025 12:30pm – 1:15pm (GST)</div>
-                    <div><span class="calendar-label">Where</span> Google Meet (instructions in description)</div>
-                    <div><span class="calendar-label">Who</span> Blaine Behl*</div>
-                </div>
-                <div style="display: flex; gap: 10px; margin-top: 20px;">
-                    <button style="padding: 8px 20px; background: #1a73e8; color: white; border: none; border-radius: 4px;">Yes</button>
-                    <button style="padding: 8px 20px; background: transparent; color: #666; border: 1px solid #ccc; border-radius: 4px;">Maybe</button>
-                    <button style="padding: 8px 20px; background: transparent; color: #666; border: 1px solid #ccc; border-radius: 4px;">No</button>
-                    <button style="padding: 8px 20px; background: transparent; color: #666; border: 1px solid #ccc; border-radius: 4px;">More options</button>
-                </div>
-            </div>
+<script>
+  // A helper function to retrieve a specific parameter from the URL
+function getQueryParam(paramName) {
+  const urlParams = new URLSearchParams(window.location.search);
+  return urlParams.get(paramName);
+}
+// 1. Get the "meetingTime" parameter from the URL
+const meetingTime = getQueryParam("event_start_time");
+const meetingEndTime = getQueryParam("event_end_time");
+const inviteemail = getQueryParam("invitee_email");
+const inviteename = getQueryParam("invitee_first_name") + " " + getQueryParam("invitee_last_name");
+const assigned_to = getQueryParam("assigned_to");
+
+document.getElementById("assignedTo").textContent = assigned_to;
+console.log(inviteename);
+// or if Calendly passes it differently, e.g. ?event_start_time=..., rename accordingly
+
+// 2. Update the textContent of the element with id="Termin"
+if (meetingTime != null) {
+  console.log(meetingTime);
+  const date = new Date(meetingTime);
+  // Tag, Monatsname (lang), Jahr ermitteln
+  const day = date.getDate();
+  const month = date.toLocaleString("de-DE", { month: "long" });
+  const year = date.getFullYear();
+  // Stunden und Minuten zweistellig formatieren
+  const hours = String(date.getHours()).padStart(2, "0");
+  const minutes = String(date.getMinutes()).padStart(2, "0");
+
+  // Zusammenbauen des endgültigen Strings
+  const formattedDate = `${day}. ${month} ${year} at ${hours}:${minutes}`;
+  console.log(formattedDate);
+  document.getElementById("termin").textContent = date.toLocaleString("en-CA", { weekday: "long",
+  year: "numeric",
+  month: "long",
+  day: "numeric", hour: "2-digit", minute: "2-digit",  timezoneName: "short" });
+}
+else {
+  document.getElementById("meetingWer").style = "display: none !important;";
+}
+
+function splitISO8601(dateString) {
+  // Split the date string into date and time components
+  const [date, timeWithOffset] = dateString.split('T');
+  // Remove any timezone offset information (like Z or +hh:mm) from the time
+  const time = timeWithOffset.split(/[Z+-]/)[0];
+  // Remove the seconds from the time (keep only hours and minutes)
+  const [hours, minutes] = time.split(':');
+  const timeWithoutSeconds = `${hours}:${minutes}`;
+  return { date, time, timeWithoutSeconds };
+}
+
+function formatGermanDate(isoDateString) {
+  // Split the ISO date string into date and time
+  const [date] = isoDateString.split('T');
+  
+  // Extract the day, month, and year from the date part
+  const [year, month, day] = date.split('-');
+  // Define an array of month names in German
+  const germanMonths = [
+    "Januar", "Februar", "März", "April", "Mai", "Juni",
+    "Juli", "August", "September", "Oktober", "November", "Dezember"
+  ];
+  // Format the date in the German format "11. Oktober" (day + month)
+  const formattedDate = `${parseInt(day)}. ${germanMonths[parseInt(month) - 1]}`;
+  return formattedDate;
+}
+
+// Use the actual meeting times instead of placeholders
+if (meetingTime != null) {
+var calStartTimeResult = splitISO8601(meetingTime);
+var calEndTimeResult = splitISO8601(meetingEndTime);
+  
+}
+  else {
+    var calStartTimeResult = splitISO8601("2025-02-28T19:20:00+01:00");
+var calEndTimeResult = splitISO8601("2025-02-28T19:21:30+01:00");
+  }
+
+// Fixed HTML string with proper spacing and actual meeting times
+document.getElementById("calBtn").innerHTML = '<add-to-calendar-button name="Erstgespräch Mindworker" description="An initial consultation with ' + assigned_to + ' from Mindworker for answering your questions." startDate="' + calStartTimeResult.date + '"  startTime="' + calStartTimeResult.time + '"  endDate="' + calEndTimeResult.date + '" endTime="' + calEndTimeResult.time + '"  timeZone="Europe/Berlin"  options="\'Apple\',\'Google\',\'iCal\',\'Outlook.com\',\'Yahoo\',\'Microsoft365\',\'MicrosoftTeams\'"  listStyle="overlay"  buttonStyle="round"  label="Add to calendar"  language="en"></add-to-calendar-button>';
+
+setTimeout(function(){ 
+//host is the element that holds the shadow root:
+var host;
+var style;
+
+host = document.getElementsByTagName('add-to-calendar-button')[0];
+style = document.createElement( 'style' );
+style.innerHTML = '.atcb-button {margin: 0 !important; transition-property: transform !important; transition-duration: .3s !important; border: none !important; box-shadow: none !important;  width: 100% !important; max-width: 100% !important;  font-weight: 400 !important; font-size: 1.25rem !important; padding-top: 0px !important;  padding-bottom: 0px !important;  padding-right: 0px !important;  padding-left: 0px !important; color: white !important; background: transparent !important; -webkit-background-clip: text !important; background-clip: text !important; }  .atcb-button:not([disabled]):hover{color: white !important; } .atcb-icon {display:none;} .atcb-initialized { width: 90% !important; padding: 8px 0px !important; background: #c67742 !important; border-radius: 100px !important; transition: 0.2s ease !important; --btn-border-radius: 0px !important; margin-left: auto !important; margin-right: auto !important; }.atcb-button-wrapper {    width: 100% !important;  } #atcb-reference {display:none !important;}'
+host.shadowRoot.appendChild( style );
+  
+
+    }, 500);
+
+</script>
+<style>
+  #calBtnBorder::before {
+  	cursor: pointer;
+    transition: 0.3s;
+  }
+  #calBtnBorder:hover::before{
+    mask-composite: add;
+  }
+  
+  #calBtnBorder{
+    transition: 0.2s ease !important;
+  }
+  #calBtnBorder div {
+  	transition: 0.3s;
+  }
+  
+  #calBtnBorder:hover div {
+  	color: white !important;  
+  }
+</style>
+
 
             <div class="important-notice">
                 <p>✅ <strong>Accept the Invite and add it to your calendar</strong> so you don't forget. Set a reminder 10 minutes before.</p>
@@ -973,3 +1070,4 @@
 </body>
 
 </html>
+
