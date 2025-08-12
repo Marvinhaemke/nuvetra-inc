@@ -403,16 +403,14 @@
 <body>
     <div class="container">
         <div class="header">
-            <div class="celebration-emoji">🎉</div>
+            <img src="/logo.png" alt="Nuvetra Logo" style="max-width: 150px; margin-bottom: 20px;">
             <h1 class="main-title">You've Made a Great Decision</h1>
-            <div class="confirmation-badge">
-                Your Session is <span class="check-mark">✓</span> Confirmed
-            </div>
+        
         </div>
 
         <!-- Step 1: Initial Video -->
         <div class="content-section active" id="step1">
-            <div class="step-badge">Step 1 of 7</div>
+            <div class="step-badge">Step 1 of 6</div>
             <h2 class="section-title">Watch the video below in full before moving on to the rest of the page</h2>
             
             <div class="video-container">
@@ -433,7 +431,7 @@
 
         <!-- Step 2: Full Overview -->
         <div class="content-section" id="step2">
-            <div class="step-badge">Step 2 of 7</div>
+            <div class="step-badge">Step 2 of 6</div>
             <h2 class="section-title">Full Overview of Our Offer and How Everything Works</h2>
             
             <div class="video-container">
@@ -457,7 +455,7 @@
 
         <!-- Step 3: Common Questions -->
         <div class="content-section" id="step3">
-            <div class="step-badge">Step 3 of 7</div>
+            <div class="step-badge">Step 3 of 6</div>
             <h2 class="section-title">Most Common Questions</h2>
             
             <div class="video-grid">
@@ -526,7 +524,7 @@
 
         <!-- Step 4: Due Diligence -->
         <div class="content-section" id="step4">
-            <div class="step-badge">Step 4 of 7</div>
+            <div class="step-badge">Step 4 of 6</div>
             <h2 class="section-title">Do Your Proper Due Diligence</h2>
             
             <div class="video-grid">
@@ -571,7 +569,7 @@
 
         <!-- Step 5: Client Interviews -->
         <div class="content-section" id="step5">
-            <div class="step-badge">Step 5 of 7</div>
+            <div class="step-badge">Step 5 of 6</div>
             <h2 class="section-title">Full-Length Client Interviews</h2>
             
             <div class="video-grid">
@@ -634,45 +632,15 @@
 
             <div class="navigation">
                 <button class="nav-button secondary" onclick="previousStep()">← Previous</button>
-                <button class="nav-button" onclick="nextStep()">Continue to Step 6 →</button>
-            </div>
-        </div>
-
-        <!-- Step 6: Free Gift -->
-        <div class="content-section" id="step6">
-            <div class="step-badge">Step 6 of 7</div>
-            <h2 class="section-title">Get Free Gift Worth $2,000+ On The Session</h2>
-            
-            <div class="section-subtitle">
-                So many people want to build a better life for themselves and their families.<br>
-                But they never even take step #1.
-            </div>
-
-            <p style="text-align: center; margin: 20px 0;">
-                As a reward for investing in a better future for yourself, we have a free gift valued at over $1,000 for attending your session called the <strong style="color: #d4a574;">High Ticket Breakthrough Kit.</strong>
-            </p>
-
-            <div class="gift-box">
-                <div class="gift-value">$2,000 <span class="free-badge">100% free</span></div>
-                <p style="color: #000; margin-top: 10px;">Simply, make sure to go through the pre-call material we send you, then show up on time with your camera on in a distraction-free space...</p>
-            </div>
-
-            <p style="text-align: center; margin: 30px 0;">
-                This shows us you are serious about your goals.<br>
-                If you meet this criteria, you'll get a private link with lifetime access during your call.<br>
-                <strong style="color: #d4a574;">This free kit is going to make your journey so much faster and easier.</strong>
-            </p>
-
-            <div class="navigation">
-                <button class="nav-button secondary" onclick="previousStep()">← Previous</button>
                 <button class="nav-button" onclick="nextStep()">Continue to Final Step →</button>
             </div>
         </div>
 
+
         <!-- Step 7: Calendar Confirmation -->
-        <div class="content-section" id="step7">
-            <div class="step-badge">Step 7 of 7</div>
-            <h2 class="section-title">Confirm Your Call</h2>
+        <div class="content-section" id="step6">
+            <div class="step-badge">Step 6 of 6</div>
+            <h2 class="section-title">Don't Miss Your Call</h2>
             
             <div id="calBtn" style="margin: auto; font-size: 1.25rem; text-align: center; position: relative; border-radius: 100px; background: transparent; color: #014421;"></div>
 
@@ -714,7 +682,7 @@ if (meetingTime != null) {
   day: "numeric", hour: "2-digit", minute: "2-digit",  timezoneName: "short" });*/
 }
 else {
-  document.getElementById("meetingWer").style = "display: none !important;";
+  //document.getElementById("meetingWer").style = "display: none !important;";
 }
 
 function splitISO8601(dateString) {
@@ -794,18 +762,7 @@ host.shadowRoot.appendChild( style );
 </style>
 
 
-            <div class="important-notice">
-                <p>✅ <strong>Accept the Invite and add it to your calendar</strong> so you don't forget. Set a reminder 10 minutes before.</p>
-                <p style="margin-top: 15px;">🔗 Your email will include a clickable Zoom or Google Meet link. Keep that email saved so you can access the call at the right time.</p>
-            </div>
-
-            <div style="background: #f0f0f0; color: #333; padding: 20px; border-radius: 10px; margin: 30px 0;">
-                <p style="font-size: 14px; margin-bottom: 10px;"><strong>[IMPORTANT - MUST READ]</strong></p>
-                <p style="font-size: 14px;">Here is your LINK TO ATTEND (Save this right now). Location: This is a Google Meet web conference.<br>
-                You can join this meeting from your computer, tablet, or smartphone.<br>
-                <a href="#" style="color: #1a73e8;">https://calendly.com/events/3311e69c-f169-4377-a57d-c63e7ca49508/google_meet</a></p>
-                <p style="font-size: 14px; margin-top: 10px;">This will not be a phone call. We will meet on Zoom or Google Meets. Attend on a desktop or a laptop if you have one available (if not, it's okay!).</p>
-            </div>
+                      
 
             <div style="text-align: center; margin: 40px 0;">
                 <p style="font-size: 24px; margin-bottom: 20px;">💡 This call could be step #1 toward completely changing your life. If you see the invite, reply <span style="color: #d4a574; font-weight: bold;">"I'll be there!"</span> to lock it in.</p>
@@ -829,14 +786,14 @@ host.shadowRoot.appendChild( style );
                 <div class="step-dot"></div>
                 <div class="step-dot"></div>
                 <div class="step-dot"></div>
-                <div class="step-dot"></div>
+                
             </div>
         </div>
     </div>
 
     <script>
         let currentStep = 1;
-        const totalSteps = 7;
+        const totalSteps = 6;
 
         function updateProgress() {
             const progress = (currentStep / totalSteps) * 100;
@@ -1072,7 +1029,6 @@ host.shadowRoot.appendChild( style );
 </body>
 
 </html>
-
 
 
 
