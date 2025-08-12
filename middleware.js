@@ -1,61 +1,82 @@
 // Simple A/B Testing Middleware for Vercel Edge Functions
 // This version works with static HTML files without Next.js
 
-export default function middleware(request) {
-  // Only apply A/B testing to the homepage
+export default async function middleware(request) {
   const url = new URL(request.url);
+  
+  // Only apply A/B testing to the homepage
   if (url.pathname !== '/' && url.pathname !== '/index.html') {
     return;
   }
 
-  // Check for forced variant via query parameter (for testing)
-  const forcedVariant = url.searchParams.get('variant');
-  if (forcedVariant === 'A' || forcedVariant === 'B') {
-    // Set cookie and redirect to the appropriate variant
-    const response = new Response(null, {
-      status: 302,
-      headers: {
-        'Location': url.pathname,
-        'Set-Cookie': `ab_variant=${forcedVariant}; Max-Age=2592000; Path=/; SameSite=Strict`
-      }
-    });
-    return response;
-  }
-
-  // Check if user already has a variant assigned
+  // Parse cookies from the request
   const cookieString = request.headers.get('cookie') || '';
   const cookies = Object.fromEntries(
-    cookieString.split('; ').map(c => c.split('='))
+    cookieString.split('; ').map(c => {
+      const [key, ...val] = c.split('=');
+      return [key, val.join('=')];
+    }).filter(([key]) => key)
   );
+
+  // Check for forced variant via query parameter (for testing)
+  const forcedVariant = url.searchParams.get('variant');
   let variant = cookies.ab_variant;
 
-  // If no variant assigned, randomly assign one
-  if (!variant || (variant !== 'A' && variant !== 'B')) {
+  if (forcedVariant === 'A' || forcedVariant === 'B') {
+    variant = forcedVariant;
+    // Remove variant parameter from URL for cleaner URLs
+    url.searchParams.delete('variant');
+  } else if (!variant || (variant !== 'A' && variant !== 'B')) {
+    // If no variant assigned, randomly assign one
     variant = Math.random() < 0.5 ? 'A' : 'B';
   }
 
-  // For Variant B, rewrite to the variant B HTML file
+  // Build the response headers
+  const responseHeaders = new Headers();
+  responseHeaders.set('Set-Cookie', `ab_variant=${variant}; Max-Age=2592000; Path=/; SameSite=Strict`);
+  responseHeaders.set('X-AB-Variant', variant);
+  
+  // Add security headers
+  responseHeaders.set('Referrer-Policy', 'origin-when-cross-origin');
+  responseHeaders.set('X-Frame-Options', 'DENY');
+  responseHeaders.set('X-Content-Type-Options', 'nosniff');
+  responseHeaders.set('X-DNS-Prefetch-Control', 'on');
+  responseHeaders.set('Strict-Transport-Security', 'max-age=31536000; includeSubDomains; preload');
+
+  // For Variant B, fetch and return the variant B HTML file
   if (variant === 'B') {
-    const response = new Response(null, {
-      status: 200,
-      headers: {
-        'Set-Cookie': `ab_variant=${variant}; Max-Age=2592000; Path=/; SameSite=Strict`,
-        'X-AB-Variant': variant
-      }
-    });
+    const variantBUrl = new URL('/index-variant-b.html', request.url);
+    const response = await fetch(variantBUrl);
     
-    // Fetch and return the variant B HTML
-    return fetch(new URL('/index-variant-b.html', request.url), {
-      headers: response.headers
+    if (!response.ok) {
+      console.error('Failed to fetch variant B file:', response.status);
+      // Fall back to regular index.html if variant B file doesn't exist
+      return;
+    }
+    
+    const html = await response.text();
+    
+    return new Response(html, {
+      status: 200,
+      headers: responseHeaders
     });
   }
 
-  // For Variant A, just set the cookie and continue
-  return new Response(null, {
-    headers: {
-      'Set-Cookie': `ab_variant=A; Max-Age=2592000; Path=/; SameSite=Strict`,
-      'X-AB-Variant': 'A'
-    }
+  // For Variant A, continue with the normal request but add the cookie
+  // We need to fetch the regular index.html and return it with our headers
+  const indexUrl = new URL('/index.html', request.url);
+  const response = await fetch(indexUrl);
+  
+  if (!response.ok) {
+    // If index.html doesn't exist, just return undefined to let Vercel handle it normally
+    return;
+  }
+  
+  const html = await response.text();
+  
+  return new Response(html, {
+    status: 200,
+    headers: responseHeaders
   });
 }
 
