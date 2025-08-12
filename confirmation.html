@@ -689,7 +689,7 @@ const inviteemail = getQueryParam("invitee_email");
 const inviteename = getQueryParam("invitee_first_name") + " " + getQueryParam("invitee_last_name");
 const assigned_to = getQueryParam("assigned_to");
 
-document.getElementById("assignedTo").textContent = assigned_to;
+//document.getElementById("assignedTo").textContent = "Annika Sander";
 console.log(inviteename);
 // or if Calendly passes it differently, e.g. ?event_start_time=..., rename accordingly
 
@@ -708,10 +708,10 @@ if (meetingTime != null) {
   // Zusammenbauen des endgültigen Strings
   const formattedDate = `${day}. ${month} ${year} at ${hours}:${minutes}`;
   console.log(formattedDate);
-  document.getElementById("termin").textContent = date.toLocaleString("en-CA", { weekday: "long",
+  /*document.getElementById("termin").textContent = date.toLocaleString("en-CA", { weekday: "long",
   year: "numeric",
   month: "long",
-  day: "numeric", hour: "2-digit", minute: "2-digit",  timezoneName: "short" });
+  day: "numeric", hour: "2-digit", minute: "2-digit",  timezoneName: "short" });*/
 }
 else {
   document.getElementById("meetingWer").style = "display: none !important;";
@@ -1072,6 +1072,7 @@ host.shadowRoot.appendChild( style );
 </body>
 
 </html>
+
 
 
 
