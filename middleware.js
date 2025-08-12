@@ -33,6 +33,11 @@ export default async function middleware(request) {
 
   // Build the response headers
   const responseHeaders = new Headers();
+  
+  // CRITICAL: Set Content-Type to HTML
+  responseHeaders.set('Content-Type', 'text/html; charset=utf-8');
+  
+  // Set the variant cookie
   responseHeaders.set('Set-Cookie', `ab_variant=${variant}; Max-Age=2592000; Path=/; SameSite=Strict`);
   responseHeaders.set('X-AB-Variant', variant);
   
@@ -51,7 +56,14 @@ export default async function middleware(request) {
     if (!response.ok) {
       console.error('Failed to fetch variant B file:', response.status);
       // Fall back to regular index.html if variant B file doesn't exist
-      return;
+      const indexUrl = new URL('/index.html', request.url);
+      const fallbackResponse = await fetch(indexUrl);
+      const fallbackHtml = await fallbackResponse.text();
+      
+      return new Response(fallbackHtml, {
+        status: 200,
+        headers: responseHeaders
+      });
     }
     
     const html = await response.text();
@@ -62,14 +74,29 @@ export default async function middleware(request) {
     });
   }
 
-  // For Variant A, continue with the normal request but add the cookie
-  // We need to fetch the regular index.html and return it with our headers
+  // For Variant A, fetch and return the regular index.html
   const indexUrl = new URL('/index.html', request.url);
   const response = await fetch(indexUrl);
   
   if (!response.ok) {
-    // If index.html doesn't exist, just return undefined to let Vercel handle it normally
-    return;
+    // If index.html doesn't exist, return an error page
+    const errorHtml = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <title>Error</title>
+      </head>
+      <body>
+        <h1>Error: index.html not found</h1>
+        <p>Please make sure index.html exists in your deployment.</p>
+      </body>
+      </html>
+    `;
+    
+    return new Response(errorHtml, {
+      status: 404,
+      headers: responseHeaders
+    });
   }
   
   const html = await response.text();
