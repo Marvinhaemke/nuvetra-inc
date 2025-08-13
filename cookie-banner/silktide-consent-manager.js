@@ -11,11 +11,11 @@ class SilktideCookieBanner {
 		this.backdrop = null;
 
 		this.createWrapper();
-
+/*
 		if (this.shouldShowBackdrop()) {
 			this.createBackdrop();
 		}
-
+*/
 		this.createCookieIcon();
 		this.createModal();
 
