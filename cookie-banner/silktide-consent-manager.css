@@ -32,6 +32,9 @@
   justify-content: center;
   align-items: center
             }
+#silktide-modal > footer > a {
+  display: none !important;
+}
 
 /* Backdrop (Global) */
 #silktide-backdrop-global {
