@@ -119,11 +119,12 @@
   font-family: var(--fontFamily);
   color: var(--textColor);
   background-color: var(--backgroundColor);
+  border: 2px solid #c67742;
+  box-shadow: 0 8px 25px rgba(212, 165, 116, 0.4);
   box-sizing: border-box;
   padding: 32px;
   border-radius: 5px;
   pointer-events: auto;
-  border: 0px;
   position: fixed;
   bottom: 16px;
   right: 16px;
@@ -133,7 +134,7 @@
   opacity: 0;
   animation: silktide-slideInDown 350ms ease-out forwards;
   animation-delay: 0.3s;
-  box-shadow: -5px 5px 10px 0px #00000012, 0px 0px 50px 0px #0000001a;
+  
 }
 
 #silktide-banner:focus {
