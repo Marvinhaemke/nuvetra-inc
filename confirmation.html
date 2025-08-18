@@ -696,6 +696,238 @@
 
 <body>
 
+    <!-- Meeting Confirmation Popup -->
+<div id="meetingPopup" class="popup-overlay">
+    <div class="popup-content">
+        <button class="popup-close" onclick="closePopup()">&times;</button>
+        <div class="popup-header">
+            <div class="popup-icon">📅</div>
+            <h2>Your Call is Confirmed!</h2>
+        </div>
+        <div class="popup-body">
+            <div class="popup-info-row">
+                <span class="popup-label">Your Funding Expert:</span>
+                <span class="popup-value" id="popupAssignedTo">Loading...</span>
+            </div>
+            <div class="popup-info-row">
+                <span class="popup-label">Meeting Time:</span>
+                <span class="popup-value" id="popupMeetingTime">Loading...</span>
+            </div>
+            
+            <!-- Calendar Button Container -->
+            <div class="popup-calendar-section">
+                <p class="calendar-prompt">Save this to your calendar now:</p>
+                <div id="popupCalBtn" style="margin: auto; font-size: 1rem; text-align: center; position: relative;"></div>
+            </div>
+            
+            <div class="popup-notice">
+                <div class="notice-icon">📞</div>
+                <div class="notice-text">
+                    <strong>Important:</strong> You will receive a phone call in the next few hours before your scheduled meeting to confirm your attendance and ensure everything is set up properly.
+                </div>
+            </div>
+            <button class="popup-btn" onclick="closePopup()">Got it, I'll be ready!</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .popup-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(8px);
+        z-index: 10000;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .popup-overlay.show {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+    }
+
+    .popup-content {
+        background: linear-gradient(135deg, #1e3c48 0%, #2b5468 100%);
+        border: 2px solid rgba(198, 119, 66, 0.3);
+        border-radius: 20px;
+        padding: 35px 30px;
+        max-width: 480px;
+        width: 100%;
+        position: relative;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+        animation: slideUp 0.5s ease;
+    }
+
+    .popup-close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: none;
+        border: none;
+        color: rgba(212, 165, 116, 0.8);
+        font-size: 32px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        line-height: 1;
+        padding: 0;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .popup-close:hover {
+        transform: rotate(90deg);
+        color: #d4a574;
+    }
+
+    .popup-header {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+
+    .popup-icon {
+        font-size: 48px;
+        margin-bottom: 10px;
+    }
+
+    .popup-header h2 {
+        font-size: 26px;
+        background: linear-gradient(135deg, #d4a574 0%, #FFD700 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+        margin: 0;
+    }
+
+    .popup-body {
+        color: #fff;
+    }
+
+    .popup-info-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 14px 18px;
+        background: rgba(0, 0, 0, 0.25);
+        border-radius: 10px;
+        margin-bottom: 12px;
+        min-height: 50px;
+    }
+
+    .popup-label {
+        color: #94a3b8;
+        font-size: 15px;
+        font-weight: 400;
+        white-space: nowrap;
+        margin-right: 15px;
+    }
+
+    .popup-value {
+        color: #d4a574;
+        font-size: 16px;
+        font-weight: 600;
+        text-align: right;
+        flex: 1;
+    }
+
+    .popup-calendar-section {
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 12px;
+        padding: 18px;
+        margin: 20px 0;
+        text-align: center;
+    }
+
+    .calendar-prompt {
+        color: #d4a574;
+        font-size: 15px;
+        margin-bottom: 12px;
+        font-weight: 400;
+    }
+
+    .popup-notice {
+        background: rgba(0, 0, 0, 0.25);
+        border-left: 3px solid #d4a574;
+        border-radius: 8px;
+        padding: 18px;
+        margin: 20px 0;
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+    }
+
+    .notice-icon {
+        font-size: 20px;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+
+    .notice-text {
+        color: #e2e8f0;
+        font-size: 14px;
+        line-height: 1.5;
+        flex: 1;
+    }
+
+    .notice-text strong {
+        color: #d4a574;
+        font-weight: 600;
+    }
+
+    .popup-btn {
+        width: 100%;
+        background: linear-gradient(135deg, #d4a574 0%, #c67742 100%);
+        color: white;
+        padding: 14px 28px;
+        font-size: 17px;
+        font-weight: 600;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 15px;
+    }
+
+    .popup-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(212, 165, 116, 0.35);
+    }
+
+    @keyframes slideUp {
+        from {
+            transform: translateY(30px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .popup-content {
+            padding: 30px 20px;
+        }
+        
+        .popup-header h2 {
+            font-size: 22px;
+        }
+        
+        .popup-value {
+            font-size: 14px;
+        }
+    }
+</style>
+
     <div class="container">
 
         <div class="header">
@@ -1226,11 +1458,11 @@
 
             setTimeout(function(){ 
 
-                var host = document.getElementsByTagName('add-to-calendar-button')[0];
+                var host = document.getElementsByTagName('add-to-calendar-button')[1];
 
                 var style = document.createElement( 'style' );
 
-                style.innerHTML = '.atcb-button {margin: 0 !important; transition-property: transform !important; transition-duration: .3s !important; border: none !important; box-shadow: none !important;  width: 100% !important; max-width: 100% !important;  font-weight: 400 !important; font-size: 1.25rem !important; padding-top: 0px !important;  padding-bottom: 0px !important;  padding-right: 0px !important;  padding-left: 0px !important; color: white !important; background: transparent !important; -webkit-background-clip: text !important; background-clip: text !important; }  .atcb-button:not([disabled]):hover{color: white !important; } .atcb-icon {display:none;} .atcb-initialized { width: 90% !important; padding: 8px 0px !important; background: #c67742 !important; border-radius: 100px !important; transition: 0.2s ease !important; --btn-border-radius: 0px !important; margin-left: auto !important; margin-right: auto !important; }.atcb-button-wrapper {    width: 100% !important;  } #atcb-reference {display:none !important;}'
+                style.innerHTML = '.atcb-button {margin: 0 !important; border: none !important; box-shadow: none !important; width: 100% !important; max-width: 100% !important; font-weight: 600 !important; font-size: 16px !important; padding: 0 !important; color: white !important; background: transparent !important; } .atcb-button:not([disabled]):hover{color: white !important; transform: scale(1.02) !important; } .atcb-icon {display:none;} .atcb-initialized { width: 80% !important; padding: 13px 24px !important; background: linear-gradient(135deg, #4CAF50, #45a049) !important; border-radius: 50px !important; transition: all 0.3s ease !important; margin: 0 auto !important; box-shadow: 0 4px 12px rgba(76, 175, 80, 0.25) !important; }.atcb-button-wrapper { width: 100% !important; } #atcb-reference {display:none !important;} .atcb-initialized:hover { transform: translateY(-2px) !important; box-shadow: 0 6px 18px rgba(76, 175, 80, 0.35) !important; }'
 
                 host.shadowRoot.appendChild( style );
 
@@ -1242,6 +1474,80 @@
 
         updateProgress();
 
+        // Popup Functions
+function initializePopupCalendar() {
+    // Use the actual meeting times
+    if (meetingTime != null) {
+        var popupCalStartTimeResult = splitISO8601(meetingTime);
+        var popupCalEndTimeResult = splitISO8601(meetingEndTime);
+    } else {
+        var popupCalStartTimeResult = splitISO8601("2025-02-28T19:20:00+01:00");
+        var popupCalEndTimeResult = splitISO8601("2025-02-28T19:21:30+01:00");
+    }
+
+    // Create calendar button in popup
+    document.getElementById("popupCalBtn").innerHTML = '<add-to-calendar-button name="Funding Meeting Nuvetra" description="An initial consultation with Nuvetra for answering your questions." startDate="' + popupCalStartTimeResult.date + '"  startTime="' + popupCalStartTimeResult.time + '"  endDate="' + popupCalEndTimeResult.date + '" endTime="' + popupCalEndTimeResult.time + '"  timeZone="Europe/Berlin"  options="\'Apple\',\'Google\',\'iCal\',\'Outlook.com\',\'Yahoo\',\'Microsoft365\',\'MicrosoftTeams\'"  listStyle="overlay"  buttonStyle="round"  label="Add to calendar"  language="en"></add-to-calendar-button>';
+
+    // Style the calendar button after it's created
+    setTimeout(function() {
+        var popupHost = document.querySelector('#popupCalBtn add-to-calendar-button');
+        if (popupHost && popupHost.shadowRoot) {
+            var popupStyle = document.createElement('style');
+            popupStyle.innerHTML = '.atcb-button {margin: 0 !important; border: none !important; box-shadow: none !important; width: 100% !important; max-width: 100% !important; font-weight: 600 !important; font-size: 16px !important; padding: 0 !important; color: white !important; background: transparent !important; } .atcb-button:not([disabled]):hover{color: white !important; transform: scale(1.02) !important; } .atcb-icon {display:none;} .atcb-initialized { width: 80% !important; padding: 13px 24px !important; background: linear-gradient(135deg, #4CAF50, #45a049) !important; border-radius: 50px !important; transition: all 0.3s ease !important; margin: 0 auto !important; box-shadow: 0 4px 12px rgba(76, 175, 80, 0.25) !important; }.atcb-button-wrapper { width: 100% !important; } #atcb-reference {display:none !important;} .atcb-initialized:hover { transform: translateY(-2px) !important; box-shadow: 0 6px 18px rgba(76, 175, 80, 0.35) !important; }';
+            popupHost.shadowRoot.appendChild(popupStyle);
+        }
+    }, 500);
+}
+
+function showPopup() {
+    const popup = document.getElementById('meetingPopup');
+    
+    // Get the assigned person
+    const assignedPerson = assigned_to || 'Your Funding Expert';
+    document.getElementById('popupAssignedTo').textContent = assignedPerson;
+    
+    // Format and display the meeting time - all on one line
+    if (meetingTime) {
+        const date = new Date(meetingTime);
+        
+        // Format date
+        const dateOptions = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
+        const formattedDate = date.toLocaleDateString('en-US', dateOptions);
+        
+        // Format time with timezone
+        const timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true, timeZoneName: 'short' };
+        const formattedTime = date.toLocaleTimeString('en-US', timeOptions);
+        
+        // Combine on one line
+        document.getElementById('popupMeetingTime').textContent = 
+            `${formattedDate} at ${formattedTime}`;
+    } else {
+        document.getElementById('popupMeetingTime').textContent = 'Time to be confirmed';
+    }
+    
+    // Initialize calendar button in popup
+    initializePopupCalendar();
+    
+    // Show the popup
+    popup.classList.add('show');
+}
+
+function closePopup() {
+    const popup = document.getElementById('meetingPopup');
+    popup.classList.remove('show');
+}
+
+// Show popup when page loads (with a small delay for better UX)
+window.addEventListener('load', function() {
+    setTimeout(showPopup, 1500);
+});
+
+// Close popup when clicking outside
+document.getElementById('meetingPopup').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closePopup();
+    }
+});
     </script>
 
     <style>
