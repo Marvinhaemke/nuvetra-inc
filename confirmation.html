@@ -418,14 +418,18 @@
                 <span class="popup-label">Meeting Time:</span>
                 <span class="popup-value" id="popupMeetingTime">Loading...</span>
             </div>
+            
             <!-- Calendar Button Container -->
             <div class="popup-calendar-section">
                 <p class="calendar-prompt">Save this to your calendar now:</p>
-                <div id="popupCalBtn" style="margin: auto; font-size: 1.25rem; text-align: center; position: relative; border-radius: 100px; background: transparent;"></div>
+                <div id="popupCalBtn" style="margin: auto; font-size: 1rem; text-align: center; position: relative;"></div>
             </div>
+            
             <div class="popup-notice">
                 <div class="notice-icon">📞</div>
-                <p><strong>Important:</strong> You will receive a phone call in the next few hours before your scheduled meeting to confirm your attendance and ensure everything is set up properly.</p>
+                <div class="notice-text">
+                    <strong>Important:</strong> You will receive a phone call in the next few hours before your scheduled meeting to confirm your attendance and ensure everything is set up properly.
+                </div>
             </div>
             <button class="popup-btn" onclick="closePopup()">Got it, I'll be ready!</button>
         </div>
@@ -440,8 +444,8 @@
         left: 0;
         width: 100%;
         height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        backdrop-filter: blur(5px);
+        background: rgba(0, 0, 0, 0.85);
+        backdrop-filter: blur(8px);
         z-index: 10000;
         animation: fadeIn 0.3s ease;
     }
@@ -450,59 +454,63 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        padding: 20px;
     }
 
     .popup-content {
-        background: linear-gradient(135deg, #1a3a4a 0%, #0a1b2f 100%);
-        border: 2px solid #c67742;
-        border-radius: 25px;
-        padding: 40px;
-        max-width: 500px;
-        width: 90%;
+        background: linear-gradient(135deg, #1e3c48 0%, #2b5468 100%);
+        border: 2px solid rgba(198, 119, 66, 0.3);
+        border-radius: 20px;
+        padding: 35px 30px;
+        max-width: 480px;
+        width: 100%;
         position: relative;
-        box-shadow: 0 20px 60px rgba(212, 165, 116, 0.3);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
         animation: slideUp 0.5s ease;
-        max-height: 90vh;
-        overflow-y: auto;
     }
 
     .popup-close {
         position: absolute;
         top: 15px;
-        right: 20px;
+        right: 15px;
         background: none;
         border: none;
-        color: #d4a574;
-        font-size: 36px;
+        color: rgba(212, 165, 116, 0.8);
+        font-size: 32px;
         cursor: pointer;
-        transition: transform 0.3s ease;
+        transition: all 0.3s ease;
         line-height: 1;
         padding: 0;
-        width: 40px;
-        height: 40px;
+        width: 35px;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .popup-close:hover {
         transform: rotate(90deg);
+        color: #d4a574;
     }
 
     .popup-header {
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 25px;
     }
 
     .popup-icon {
-        font-size: 60px;
-        margin-bottom: 15px;
+        font-size: 48px;
+        margin-bottom: 10px;
     }
 
     .popup-header h2 {
-        font-size: 28px;
+        font-size: 26px;
         background: linear-gradient(135deg, #d4a574 0%, #FFD700 100%);
         -webkit-background-clip: text;
         -webkit-text-fill-color: transparent;
         background-clip: text;
         font-weight: 700;
+        margin: 0;
     }
 
     .popup-body {
@@ -513,87 +521,90 @@
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 15px;
-        background: rgba(255, 255, 255, 0.05);
-        border-radius: 12px;
-        margin-bottom: 15px;
+        padding: 14px 18px;
+        background: rgba(0, 0, 0, 0.25);
+        border-radius: 10px;
+        margin-bottom: 12px;
+        min-height: 50px;
     }
 
     .popup-label {
-        color: #999;
-        font-size: 16px;
+        color: #94a3b8;
+        font-size: 15px;
+        font-weight: 400;
+        white-space: nowrap;
+        margin-right: 15px;
     }
 
     .popup-value {
         color: #d4a574;
-        font-size: 18px;
+        font-size: 16px;
         font-weight: 600;
+        text-align: right;
+        flex: 1;
     }
 
     .popup-calendar-section {
-        background: rgba(212, 165, 116, 0.1);
-        border-radius: 15px;
-        padding: 20px;
+        background: rgba(0, 0, 0, 0.2);
+        border-radius: 12px;
+        padding: 18px;
         margin: 20px 0;
         text-align: center;
     }
 
     .calendar-prompt {
         color: #d4a574;
-        font-size: 16px;
-        margin-bottom: 15px;
-        font-weight: 500;
+        font-size: 15px;
+        margin-bottom: 12px;
+        font-weight: 400;
     }
 
     .popup-notice {
-        background: rgba(198, 119, 66, 0.15);
-        border-left: 4px solid #c67742;
-        border-radius: 10px;
-        padding: 20px;
-        margin: 25px 0;
+        background: rgba(0, 0, 0, 0.25);
+        border-left: 3px solid #d4a574;
+        border-radius: 8px;
+        padding: 18px;
+        margin: 20px 0;
         display: flex;
-        gap: 15px;
+        gap: 12px;
         align-items: flex-start;
     }
 
     .notice-icon {
-        font-size: 24px;
+        font-size: 20px;
         flex-shrink: 0;
+        margin-top: 2px;
     }
 
-    .popup-notice p {
-        color: #fff;
-        font-size: 15px;
-        line-height: 1.6;
-        margin: 0;
+    .notice-text {
+        color: #e2e8f0;
+        font-size: 14px;
+        line-height: 1.5;
+        flex: 1;
     }
 
-    .popup-notice strong {
+    .notice-text strong {
         color: #d4a574;
+        font-weight: 600;
     }
 
     .popup-btn {
         width: 100%;
         background: linear-gradient(135deg, #d4a574 0%, #c67742 100%);
         color: white;
-        padding: 15px 30px;
-        font-size: 18px;
+        padding: 14px 28px;
+        font-size: 17px;
         font-weight: 600;
         border: none;
         border-radius: 50px;
         cursor: pointer;
         transition: all 0.3s ease;
-        margin-top: 20px;
+        margin-top: 15px;
     }
 
     .popup-btn:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 30px rgba(212, 165, 116, 0.4);
-    }
-
-    /* Custom styles for calendar button in popup */
-    #popupCalBtn .atcb-initialized {
-        margin: 0 auto !important;
+        box-shadow: 0 8px 25px rgba(212, 165, 116, 0.35);
     }
 
     @keyframes fadeIn {
@@ -603,7 +614,7 @@
 
     @keyframes slideUp {
         from {
-            transform: translateY(50px);
+            transform: translateY(30px);
             opacity: 0;
         }
         to {
@@ -615,17 +626,14 @@
     @media (max-width: 768px) {
         .popup-content {
             padding: 30px 20px;
-            max-height: 85vh;
         }
         
         .popup-header h2 {
-            font-size: 24px;
+            font-size: 22px;
         }
         
-        .popup-info-row {
-            flex-direction: column;
-            align-items: flex-start;
-            gap: 5px;
+        .popup-value {
+            font-size: 14px;
         }
     }
 </style>
@@ -1097,7 +1105,7 @@ function initializePopupCalendar() {
         var popupHost = document.querySelector('#popupCalBtn add-to-calendar-button');
         if (popupHost && popupHost.shadowRoot) {
             var popupStyle = document.createElement('style');
-            popupStyle.innerHTML = '.atcb-button {margin: 0 !important; transition-property: transform !important; transition-duration: .3s !important; border: none !important; box-shadow: none !important;  width: 100% !important; max-width: 100% !important;  font-weight: 600 !important; font-size: 1rem !important; padding-top: 0px !important;  padding-bottom: 0px !important;  padding-right: 0px !important;  padding-left: 0px !important; color: white !important; background: transparent !important; } .atcb-button:not([disabled]):hover{color: white !important; transform: scale(1.05) !important; } .atcb-icon {display:none;} .atcb-initialized { width: 100% !important; padding: 12px 24px !important; background: linear-gradient(135deg, #4CAF50, #45a049) !important; border-radius: 50px !important; transition: all 0.3s ease !important; --btn-border-radius: 50px !important; margin-left: auto !important; margin-right: auto !important; box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3) !important; }.atcb-button-wrapper { width: 100% !important; } #atcb-reference {display:none !important;} .atcb-initialized:hover { transform: translateY(-2px) !important; box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4) !important; }';
+            popupStyle.innerHTML = '.atcb-button {margin: 0 !important; border: none !important; box-shadow: none !important; width: 100% !important; max-width: 100% !important; font-weight: 600 !important; font-size: 16px !important; padding: 0 !important; color: white !important; background: transparent !important; } .atcb-button:not([disabled]):hover{color: white !important; transform: scale(1.02) !important; } .atcb-icon {display:none;} .atcb-initialized { width: 100% !important; padding: 13px 24px !important; background: linear-gradient(135deg, #4CAF50, #45a049) !important; border-radius: 50px !important; transition: all 0.3s ease !important; margin: 0 auto !important; box-shadow: 0 4px 12px rgba(76, 175, 80, 0.25) !important; }.atcb-button-wrapper { width: 100% !important; } #atcb-reference {display:none !important;} .atcb-initialized:hover { transform: translateY(-2px) !important; box-shadow: 0 6px 18px rgba(76, 175, 80, 0.35) !important; }';
             popupHost.shadowRoot.appendChild(popupStyle);
         }
     }, 500);
@@ -1107,23 +1115,24 @@ function showPopup() {
     const popup = document.getElementById('meetingPopup');
     
     // Get the assigned person
-    const assignedPerson = assigned_to || 'Your Success Coach';
+    const assignedPerson = assigned_to || 'Your Funding Expert';
     document.getElementById('popupAssignedTo').textContent = assignedPerson;
     
-    // Format and display the meeting time
+    // Format and display the meeting time - all on one line
     if (meetingTime) {
         const date = new Date(meetingTime);
-        const options = {
-            weekday: 'long',
-            year: 'numeric',
-            month: 'long',
-            day: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            timeZoneName: 'short'
-        };
-        const formattedTime = date.toLocaleString('en-US', options);
-        document.getElementById('popupMeetingTime').textContent = formattedTime;
+        
+        // Format date
+        const dateOptions = { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric' };
+        const formattedDate = date.toLocaleDateString('en-US', dateOptions);
+        
+        // Format time with timezone
+        const timeOptions = { hour: 'numeric', minute: '2-digit', hour12: true, timeZoneName: 'short' };
+        const formattedTime = date.toLocaleTimeString('en-US', timeOptions);
+        
+        // Combine on one line
+        document.getElementById('popupMeetingTime').textContent = 
+            `${formattedDate} at ${formattedTime}`;
     } else {
         document.getElementById('popupMeetingTime').textContent = 'Time to be confirmed';
     }
@@ -1331,6 +1340,7 @@ document.getElementById('meetingPopup').addEventListener('click', function(e) {
 </body>
 
 </html>
+
 
 
 
