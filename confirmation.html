@@ -418,6 +418,11 @@
                 <span class="popup-label">Meeting Time:</span>
                 <span class="popup-value" id="popupMeetingTime">Loading...</span>
             </div>
+            <!-- Calendar Button Container -->
+            <div class="popup-calendar-section">
+                <p class="calendar-prompt">Save this to your calendar now:</p>
+                <div id="popupCalBtn" style="margin: auto; font-size: 1.25rem; text-align: center; position: relative; border-radius: 100px; background: transparent;"></div>
+            </div>
             <div class="popup-notice">
                 <div class="notice-icon">📞</div>
                 <p><strong>Important:</strong> You will receive a phone call in the next few hours before your scheduled meeting to confirm your attendance and ensure everything is set up properly.</p>
@@ -457,6 +462,8 @@
         position: relative;
         box-shadow: 0 20px 60px rgba(212, 165, 116, 0.3);
         animation: slideUp 0.5s ease;
+        max-height: 90vh;
+        overflow-y: auto;
     }
 
     .popup-close {
@@ -523,6 +530,21 @@
         font-weight: 600;
     }
 
+    .popup-calendar-section {
+        background: rgba(212, 165, 116, 0.1);
+        border-radius: 15px;
+        padding: 20px;
+        margin: 20px 0;
+        text-align: center;
+    }
+
+    .calendar-prompt {
+        color: #d4a574;
+        font-size: 16px;
+        margin-bottom: 15px;
+        font-weight: 500;
+    }
+
     .popup-notice {
         background: rgba(198, 119, 66, 0.15);
         border-left: 4px solid #c67742;
@@ -569,6 +591,11 @@
         box-shadow: 0 10px 30px rgba(212, 165, 116, 0.4);
     }
 
+    /* Custom styles for calendar button in popup */
+    #popupCalBtn .atcb-initialized {
+        margin: 0 auto !important;
+    }
+
     @keyframes fadeIn {
         from { opacity: 0; }
         to { opacity: 1; }
@@ -588,6 +615,7 @@
     @media (max-width: 768px) {
         .popup-content {
             padding: 30px 20px;
+            max-height: 85vh;
         }
         
         .popup-header h2 {
@@ -1051,6 +1079,30 @@ host.shadowRoot.appendChild( style );
         updateProgress();
 
         // Popup Functions
+function initializePopupCalendar() {
+    // Use the actual meeting times
+    if (meetingTime != null) {
+        var popupCalStartTimeResult = splitISO8601(meetingTime);
+        var popupCalEndTimeResult = splitISO8601(meetingEndTime);
+    } else {
+        var popupCalStartTimeResult = splitISO8601("2025-02-28T19:20:00+01:00");
+        var popupCalEndTimeResult = splitISO8601("2025-02-28T19:21:30+01:00");
+    }
+
+    // Create calendar button in popup
+    document.getElementById("popupCalBtn").innerHTML = '<add-to-calendar-button name="Erstgespräch Mindworker" description="An initial consultation from Nuvetra for answering your questions." startDate="' + popupCalStartTimeResult.date + '"  startTime="' + popupCalStartTimeResult.time + '"  endDate="' + popupCalEndTimeResult.date + '" endTime="' + popupCalEndTimeResult.time + '"  timeZone="Europe/Berlin"  options="\'Apple\',\'Google\',\'iCal\',\'Outlook.com\',\'Yahoo\',\'Microsoft365\',\'MicrosoftTeams\'"  listStyle="overlay"  buttonStyle="round"  label="Add to calendar"  language="en"></add-to-calendar-button>';
+
+    // Style the calendar button after it's created
+    setTimeout(function() {
+        var popupHost = document.querySelector('#popupCalBtn add-to-calendar-button');
+        if (popupHost && popupHost.shadowRoot) {
+            var popupStyle = document.createElement('style');
+            popupStyle.innerHTML = '.atcb-button {margin: 0 !important; transition-property: transform !important; transition-duration: .3s !important; border: none !important; box-shadow: none !important;  width: 100% !important; max-width: 100% !important;  font-weight: 600 !important; font-size: 1rem !important; padding-top: 0px !important;  padding-bottom: 0px !important;  padding-right: 0px !important;  padding-left: 0px !important; color: white !important; background: transparent !important; } .atcb-button:not([disabled]):hover{color: white !important; transform: scale(1.05) !important; } .atcb-icon {display:none;} .atcb-initialized { width: 100% !important; padding: 12px 24px !important; background: linear-gradient(135deg, #4CAF50, #45a049) !important; border-radius: 50px !important; transition: all 0.3s ease !important; --btn-border-radius: 50px !important; margin-left: auto !important; margin-right: auto !important; box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3) !important; }.atcb-button-wrapper { width: 100% !important; } #atcb-reference {display:none !important;} .atcb-initialized:hover { transform: translateY(-2px) !important; box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4) !important; }';
+            popupHost.shadowRoot.appendChild(popupStyle);
+        }
+    }, 500);
+}
+
 function showPopup() {
     const popup = document.getElementById('meetingPopup');
     
@@ -1076,6 +1128,9 @@ function showPopup() {
         document.getElementById('popupMeetingTime').textContent = 'Time to be confirmed';
     }
     
+    // Initialize calendar button in popup
+    initializePopupCalendar();
+    
     // Show the popup
     popup.classList.add('show');
 }
@@ -1087,7 +1142,7 @@ function closePopup() {
 
 // Show popup when page loads (with a small delay for better UX)
 window.addEventListener('load', function() {
-    setTimeout(showPopup, 1000);
+    setTimeout(showPopup, 1500);
 });
 
 // Close popup when clicking outside
@@ -1276,6 +1331,7 @@ document.getElementById('meetingPopup').addEventListener('click', function(e) {
 </body>
 
 </html>
+
 
 
 
