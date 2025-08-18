@@ -401,6 +401,206 @@
     </style>
 </head>
 <body>
+    <!-- Meeting Confirmation Popup -->
+<div id="meetingPopup" class="popup-overlay">
+    <div class="popup-content">
+        <button class="popup-close" onclick="closePopup()">&times;</button>
+        <div class="popup-header">
+            <div class="popup-icon">📅</div>
+            <h2>Your Call is Confirmed!</h2>
+        </div>
+        <div class="popup-body">
+            <div class="popup-info-row">
+                <span class="popup-label">Your Success Coach:</span>
+                <span class="popup-value" id="popupAssignedTo">Loading...</span>
+            </div>
+            <div class="popup-info-row">
+                <span class="popup-label">Meeting Time:</span>
+                <span class="popup-value" id="popupMeetingTime">Loading...</span>
+            </div>
+            <div class="popup-notice">
+                <div class="notice-icon">📞</div>
+                <p><strong>Important:</strong> You will receive a phone call 15-30 minutes before your scheduled meeting to confirm your attendance and ensure everything is set up properly.</p>
+            </div>
+            <button class="popup-btn" onclick="closePopup()">Got it, I'll be ready!</button>
+        </div>
+    </div>
+</div>
+
+<style>
+    .popup-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        backdrop-filter: blur(5px);
+        z-index: 10000;
+        animation: fadeIn 0.3s ease;
+    }
+
+    .popup-overlay.show {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .popup-content {
+        background: linear-gradient(135deg, #1a3a4a 0%, #0a1b2f 100%);
+        border: 2px solid #c67742;
+        border-radius: 25px;
+        padding: 40px;
+        max-width: 500px;
+        width: 90%;
+        position: relative;
+        box-shadow: 0 20px 60px rgba(212, 165, 116, 0.3);
+        animation: slideUp 0.5s ease;
+    }
+
+    .popup-close {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        background: none;
+        border: none;
+        color: #d4a574;
+        font-size: 36px;
+        cursor: pointer;
+        transition: transform 0.3s ease;
+        line-height: 1;
+        padding: 0;
+        width: 40px;
+        height: 40px;
+    }
+
+    .popup-close:hover {
+        transform: rotate(90deg);
+    }
+
+    .popup-header {
+        text-align: center;
+        margin-bottom: 30px;
+    }
+
+    .popup-icon {
+        font-size: 60px;
+        margin-bottom: 15px;
+    }
+
+    .popup-header h2 {
+        font-size: 28px;
+        background: linear-gradient(135deg, #d4a574 0%, #FFD700 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        font-weight: 700;
+    }
+
+    .popup-body {
+        color: #fff;
+    }
+
+    .popup-info-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        margin-bottom: 15px;
+    }
+
+    .popup-label {
+        color: #999;
+        font-size: 16px;
+    }
+
+    .popup-value {
+        color: #d4a574;
+        font-size: 18px;
+        font-weight: 600;
+    }
+
+    .popup-notice {
+        background: rgba(198, 119, 66, 0.15);
+        border-left: 4px solid #c67742;
+        border-radius: 10px;
+        padding: 20px;
+        margin: 25px 0;
+        display: flex;
+        gap: 15px;
+        align-items: flex-start;
+    }
+
+    .notice-icon {
+        font-size: 24px;
+        flex-shrink: 0;
+    }
+
+    .popup-notice p {
+        color: #fff;
+        font-size: 15px;
+        line-height: 1.6;
+        margin: 0;
+    }
+
+    .popup-notice strong {
+        color: #d4a574;
+    }
+
+    .popup-btn {
+        width: 100%;
+        background: linear-gradient(135deg, #d4a574 0%, #c67742 100%);
+        color: white;
+        padding: 15px 30px;
+        font-size: 18px;
+        font-weight: 600;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        margin-top: 20px;
+    }
+
+    .popup-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 30px rgba(212, 165, 116, 0.4);
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+        from {
+            transform: translateY(50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .popup-content {
+            padding: 30px 20px;
+        }
+        
+        .popup-header h2 {
+            font-size: 24px;
+        }
+        
+        .popup-info-row {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 5px;
+        }
+    }
+</style>
     <div class="container">
         <div class="header">
             <img src="/logo.png" alt="Nuvetra Logo" style="max-width: 150px; margin-bottom: 20px;">
@@ -849,6 +1049,53 @@ host.shadowRoot.appendChild( style );
 
         // Initialize
         updateProgress();
+
+        // Popup Functions
+function showPopup() {
+    const popup = document.getElementById('meetingPopup');
+    
+    // Get the assigned person
+    const assignedPerson = assigned_to || 'Your Success Coach';
+    document.getElementById('popupAssignedTo').textContent = assignedPerson;
+    
+    // Format and display the meeting time
+    if (meetingTime) {
+        const date = new Date(meetingTime);
+        const options = {
+            weekday: 'long',
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            timeZoneName: 'short'
+        };
+        const formattedTime = date.toLocaleString('en-US', options);
+        document.getElementById('popupMeetingTime').textContent = formattedTime;
+    } else {
+        document.getElementById('popupMeetingTime').textContent = 'Time to be confirmed';
+    }
+    
+    // Show the popup
+    popup.classList.add('show');
+}
+
+function closePopup() {
+    const popup = document.getElementById('meetingPopup');
+    popup.classList.remove('show');
+}
+
+// Show popup when page loads (with a small delay for better UX)
+window.addEventListener('load', function() {
+    setTimeout(showPopup, 1000);
+});
+
+// Close popup when clicking outside
+document.getElementById('meetingPopup').addEventListener('click', function(e) {
+    if (e.target === this) {
+        closePopup();
+    }
+});
     </script>
 
     <style>
@@ -1029,6 +1276,7 @@ host.shadowRoot.appendChild( style );
 </body>
 
 </html>
+
 
 
 
