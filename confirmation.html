@@ -298,6 +298,10 @@
 .video-info {
     padding: 15px;
     background: linear-gradient(135deg, rgba(44, 95, 111, 0.3) 0%, rgba(26, 58, 68, 0.3) 100%);
+    min-height: 85px; /* Add this line to ensure consistent height */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .video-title {
@@ -1104,7 +1108,7 @@
 
                     <div class="video-info">
 
-                        <div class="video-title">I don't have enough capital to start</div>
+                        <div class="video-title">I don't have enough capital to start</br></div>
 
                         <div class="video-duration">00:42</div>
 
@@ -2032,6 +2036,7 @@ document.getElementById('meetingPopup').addEventListener('click', function(e) {
 </body>
 
 </html>
+
 
 
 
