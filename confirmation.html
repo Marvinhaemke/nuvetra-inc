@@ -1396,6 +1396,46 @@
 
         }
 
+        // Flag to control popup display
+let showPopupOnLoad = true;
+
+// Function to navigate directly to a step based on URL parameters
+function checkDirectNavigation() {
+    const directStep = getQueryParam("step");
+    const videoId = getQueryParam("video");
+    
+    if (directStep === "2" || directStep === "3") {
+        // Disable popup when direct navigation is used
+        showPopupOnLoad = false;
+        
+        // Jump directly to the requested step
+        currentStep = parseInt(directStep);
+        showStep(currentStep);
+        
+        // If step 3 with a specific video is requested, scroll to it
+        if (directStep === "3" && videoId) {
+            setTimeout(() => {
+                const videos = document.querySelectorAll('.video-card');
+                const videoIndex = parseInt(videoId) - 1;
+                if (videos[videoIndex]) {
+                    videos[videoIndex].scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'center' 
+                    });
+                    // Optional: add a highlight effect
+                    videos[videoIndex].style.boxShadow = '0 0 20px rgba(212, 165, 116, 0.8)';
+                    setTimeout(() => {
+                        videos[videoIndex].style.boxShadow = '';
+                    }, 2000);
+                }
+            }, 500);
+        }
+    }
+}
+
+// Call this function when the DOM is ready
+window.addEventListener('DOMContentLoaded', checkDirectNavigation);
+
         // Get parameters from URL
 
         const meetingTime = getQueryParam("event_start_time");
@@ -1679,7 +1719,10 @@ function closePopup() {
 
 // Show popup when page loads (with a small delay for better UX)
 window.addEventListener('load', function() {
-    setTimeout(showPopup, 1500);
+    // Only show popup if not using direct navigation
+    if (showPopupOnLoad) {
+        setTimeout(showPopup, 1500);
+    }
 });
 
 // Close popup when clicking outside
@@ -1989,6 +2032,7 @@ document.getElementById('meetingPopup').addEventListener('click', function(e) {
 </body>
 
 </html>
+
 
 
 
