@@ -255,7 +255,6 @@
         }
 
         /* Video Grid */
-
       /* Video Grid - Updated for Vertical Shorts with Centered Last Row */
 .video-grid {
     display: flex;
@@ -960,47 +959,7 @@
 
         </div>
 
-        <!-- Step 2: Full Overview 
-
-        <div class="content-section" id="step2">
-
-            <div class="step-badge">Step 2 of 3</div>
-
-            <h2 class="section-title">Full Overview of Our Offer and How Everything Works</h2>
-
-            
-
-            <div class="video-container">
-
-                <iframe src="https://www.youtube.com/embed/ScMzIvxBSi4" 
-
-                        title="Full Overview Video" 
-
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-
-                        allowfullscreen>
-
-                </iframe>
-
-            </div>
-
-            <div style="text-align: center; margin-top: 30px;">
-
-                <button class="nav-button" style="background: #FFD700; color: #000;">Access Resource Document</button>
-
-            </div>
-
-            <div class="navigation">
-
-                <button class="nav-button secondary" onclick="previousStep()">← Previous</button>
-
-                <button class="nav-button" onclick="nextStep()">Continue to Step 3 →</button>
-
-            </div>
-
-        </div>
--->
-        <!-- Step 3: Common Questions -->
+        <!-- Step 2: Common Questions (previously Step 3) -->
 
         <div class="content-section" id="step2">
 
@@ -1364,15 +1323,13 @@
 
             <div class="progress-bar">
 
-                <div class="progress-fill" id="progressBar" style="width: 33.33%;"></div>
+                <div class="progress-fill" id="progressBar" style="width: 50%;"></div>
 
             </div>
 
             <div class="step-dots">
 
                 <div class="step-dot active"></div>
-
-                <div class="step-dot"></div>
 
                 <div class="step-dot"></div>
 
@@ -1386,7 +1343,7 @@
 
         let currentStep = 1;
 
-        const totalSteps = 3;
+        const totalSteps = 2;
 
         
 
@@ -1408,7 +1365,7 @@ function checkDirectNavigation() {
     const directStep = getQueryParam("step");
     const videoId = getQueryParam("video");
     
-    if (directStep === "2" || directStep === "3") {
+    if (directStep === "2") {
         // Disable popup when direct navigation is used
         showPopupOnLoad = false;
         
@@ -1416,7 +1373,7 @@ function checkDirectNavigation() {
         currentStep = parseInt(directStep);
         showStep(currentStep);
         
-        // If step 3 with a specific video is requested, scroll to it
+        // If step 2 with a specific video is requested, scroll to it
         if (directStep === "2" && videoId) {
             setTimeout(() => {
                 const videos = document.querySelectorAll('.video-card');
@@ -1955,7 +1912,7 @@ document.getElementById('meetingPopup').addEventListener('click', function(e) {
 
                 <div class="social-links">
 
-                    <!-- Facebook -->
+                    <!-- Facebook 
 
                     <a href="#" aria-label="Facebook">
 
@@ -1965,11 +1922,11 @@ document.getElementById('meetingPopup').addEventListener('click', function(e) {
 
                         </svg>
 
-                    </a>
+                    </a>-->
 
                     <!-- Instagram -->
 
-                    <a href="#" aria-label="Instagram">
+                    <a href="https://www.instagram.com/dr.robincassidy?igsh=cmQxZW1hMHJhajM5&utm_source=website" aria-label="Instagram">
 
                         <svg fill="currentColor" viewBox="0 0 24 24">
 
@@ -1981,7 +1938,7 @@ document.getElementById('meetingPopup').addEventListener('click', function(e) {
 
                     <!-- YouTube -->
 
-                    <a href="#" aria-label="YouTube">
+                    <a href="https://www.youtube.com/@Dr.RobinCassidy" aria-label="YouTube">
 
                         <svg fill="currentColor" viewBox="0 0 24 24">
 
@@ -1991,7 +1948,7 @@ document.getElementById('meetingPopup').addEventListener('click', function(e) {
 
                     </a>
 
-                    <!-- LinkedIn -->
+                    <!-- LinkedIn 
 
                     <a href="#" aria-label="LinkedIn">
 
@@ -2001,9 +1958,9 @@ document.getElementById('meetingPopup').addEventListener('click', function(e) {
 
                         </svg>
 
-                    </a>
+                    </a>-->
 
-                    <!-- TikTok -->
+                    <!-- TikTok 
 
                     <a href="#" aria-label="TikTok">
 
@@ -2013,7 +1970,7 @@ document.getElementById('meetingPopup').addEventListener('click', function(e) {
 
                         </svg>
 
-                    </a>
+                    </a>-->
 
                 </div>
 
@@ -2036,14 +1993,3 @@ document.getElementById('meetingPopup').addEventListener('click', function(e) {
 </body>
 
 </html>
-
-
-
-
-
-
-
-
-
-
-
