@@ -930,7 +930,7 @@
 
         <div class="content-section active" id="step1">
 
-            <div class="step-badge">Step 1 of 3</div>
+            <div class="step-badge">Step 1 of 2</div>
 
             <h2 class="section-title">Watch the video below in full before moving on to the rest of the page</h2>
 
@@ -960,7 +960,7 @@
 
         </div>
 
-        <!-- Step 2: Full Overview -->
+        <!-- Step 2: Full Overview 
 
         <div class="content-section" id="step2">
 
@@ -999,12 +999,12 @@
             </div>
 
         </div>
-
+-->
         <!-- Step 3: Common Questions -->
 
-        <div class="content-section" id="step3">
+        <div class="content-section" id="step2">
 
-            <div class="step-badge">Step 3 of 3</div>
+            <div class="step-badge">Step 2 of 2</div>
 
             <h2 class="section-title">Most Common Questions</h2>
 
@@ -1417,7 +1417,7 @@ function checkDirectNavigation() {
         showStep(currentStep);
         
         // If step 3 with a specific video is requested, scroll to it
-        if (directStep === "3" && videoId) {
+        if (directStep === "2" && videoId) {
             setTimeout(() => {
                 const videos = document.querySelectorAll('.video-card');
                 const videoIndex = parseInt(videoId) - 1;
@@ -2036,6 +2036,7 @@ document.getElementById('meetingPopup').addEventListener('click', function(e) {
 </body>
 
 </html>
+
 
 
 
